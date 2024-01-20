@@ -6,6 +6,28 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
+const Statistics = ({ good, neutral, bad, all, avg, pos }) => {
+  if ( all === 0 ) {
+    return (
+      <div>
+        <h2>statistics</h2> 
+        No feedback given
+      </div>
+    )
+  }
+  return (
+    <div>
+      <h2>statistics</h2> 
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+        <p>all {all}</p>
+        <p>average {avg}</p>
+        <p>positive {pos} %</p>
+    </div>
+)
+}
+
 const App = () => {
   // feedback options
   const [good, setGood] = useState(0)
@@ -25,6 +47,7 @@ const App = () => {
     setAll(updatedAll)
     setAvg((updatedGood-bad)/updatedAll)
     setPos(updatedGood/updatedAll*100)
+
     console.log('good', updatedGood)
   }
 
@@ -36,6 +59,7 @@ const App = () => {
     setAll(updatedAll)
     setAvg((good-bad)/updatedAll)
     setPos(good/updatedAll*100)
+
     console.log('neutral', updatedNeutral)
   }
 
@@ -47,6 +71,7 @@ const App = () => {
     setAll(updatedAll)
     setAvg((good-updatedBad)/updatedAll)
     setPos(good/updatedAll*100)
+
     console.log('bad', updatedBad)
   }
 
@@ -58,13 +83,7 @@ const App = () => {
       <Button handleClick={handleNeutralClick} text='neutral'/>
       <Button handleClick={handleBadClick} text='bad'/>
 
-      <h2>statistics</h2> 
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {avg}</p>
-      <p>positive {pos} %</p>
+      <Statistics all={all} good={good} neutral={neutral} bad={bad} avg={avg} pos={pos}/>
     </div>
   )
 }
