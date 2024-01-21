@@ -6,6 +6,22 @@ const Button = ({ handleClick, text }) => (
   </button>
 )
 
+const Anecdote = ( { anecdotes, votes }) => {
+  if ( Math.max(...votes) === 0 ) {
+    return (
+      <div>
+        No votes given yet
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      {anecdotes[votes.indexOf(Math.max(...votes))]}
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -45,7 +61,7 @@ const App = () => {
       <Button handleClick={handleVoteClick} text='vote'/>
       <Button handleClick={handleAnecdoteClick} text='generate anecdote'/>
       <h2>Anecdote with most votes</h2>
-      {anecdotes[votes.indexOf(Math.max(...votes))]}
+      <Anecdote anecdotes={anecdotes} votes={votes}/>
     </div>
   )
 }
