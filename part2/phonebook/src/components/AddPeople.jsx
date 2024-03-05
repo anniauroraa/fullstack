@@ -1,5 +1,4 @@
 const AddPeople = ({newName, handleNameAdd, newNumber, handleNumberAdd, persons, setNewName, setNewNumber,setPersons}) => {
-    console.log("halo")
     const addPerson = (event) => {
         event.preventDefault()
         console.log('add button clicked', event.target)
