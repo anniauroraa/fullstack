@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import AddPeople from './components/AddPeople'
 import RenderPeople from './components/RenderPeople'
+import service from './components/Services'
 
 
 const App = () => {
@@ -13,12 +13,14 @@ const App = () => {
 
   const hook = () => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
+    service
+    .getAll()
+    .then(initializePersons => {
+      setPersons(initializePersons)
+    })
+    .catch(error => {
+      console.log('fail')
+    })
   }
   
   useEffect(hook, [])
