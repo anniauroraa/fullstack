@@ -61,7 +61,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       
-      <RenderPeople persons={persons} newFilter={newFilter} />
+      <RenderPeople persons={persons} newFilter={newFilter} setPersons={setPersons}/>
       
     </div>
   )
