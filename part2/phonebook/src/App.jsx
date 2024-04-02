@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import AddPeople from './components/AddPeople'
 import RenderPeople from './components/RenderPeople'
 import service from './components/Services'
+import Notification from './components/Notification'
 
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setFilter] = useState('')
+  const [updateMessage, setUpdateMessage] = useState(null)
 
   const hook = () => {
     console.log('effect')
@@ -44,6 +46,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       
+      <Notification message={updateMessage} />
+
       <Filter newFilter={newFilter} handleFilter={handleFilter} />
 
       <h2>add a new</h2>
@@ -57,6 +61,8 @@ const App = () => {
         setNewName={setNewName}
         setNewNumber={setNewNumber}
         setPersons={setPersons}
+        setUpdateMessage={setUpdateMessage}
+        updateMessage={updateMessage}
         />
 
       <h2>Numbers</h2>

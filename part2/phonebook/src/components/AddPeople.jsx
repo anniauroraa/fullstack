@@ -1,13 +1,12 @@
 import service from './Services'
 
-const AddPeople = ({newName, handleNameAdd, newNumber, handleNumberAdd, persons, setNewName, setNewNumber,setPersons}) => {
+const AddPeople = ({newName, handleNameAdd, newNumber, handleNumberAdd, persons, setNewName, setNewNumber,setPersons,setUpdateMessage,updateMessage}) => {
     const addPerson = (event) => {
       event.preventDefault()
       console.log('add button clicked', event.target)
       const nameObject = {  
         name: newName,
         number: newNumber,
-        id: (persons.length +1).toString(),
         exists: persons.some(person => person.name === newName)
       }
       console.log(nameObject.exists)
@@ -21,6 +20,12 @@ const AddPeople = ({newName, handleNameAdd, newNumber, handleNumberAdd, persons,
             setPersons(persons.concat(person))
             setNewNumber('')
             setNewName('')
+            setUpdateMessage(
+              `Added ${person.name}`
+              )
+              setTimeout(() => {
+                setUpdateMessage(null)
+              }, 5000)
           })
           .catch(error => {
             console.log('fail')
