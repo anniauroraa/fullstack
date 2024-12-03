@@ -28,17 +28,17 @@ const App = () => {
   useEffect(hook, [])
 
   const handleNameAdd = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewName(event.target.value)
   }
 
   const handleNumberAdd = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewNumber(event.target.value)
   }
 
   const handleFilter = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setFilter(event.target.value)
   }
 

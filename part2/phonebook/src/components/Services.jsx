@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = '/api/persons'
 
 const getAll = () => {
     const request = axios.get(baseUrl)
@@ -17,9 +17,12 @@ const create = newObject => {
   }
 
   const remove = (id, newObject) => {
+
+    console.log('delete id: ' + id)
+
     const request = axios.delete(`${baseUrl}/${id}`, newObject)
     .then(response => {
-      console.log(`Deleted post with ID ${id}`);
+      console.log(`deleted post with ID ${id}`);
     })
   }
 

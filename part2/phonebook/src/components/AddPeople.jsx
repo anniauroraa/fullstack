@@ -10,7 +10,7 @@ const AddPeople = ({newName, handleNameAdd, newNumber, handleNumberAdd, persons,
         exists: persons.some(person => person.name === newName)
       }
       console.log(nameObject.exists)
-      console.log(nameObject.content)
+      console.log(nameObject.number)
       if (!nameObject.exists) {
           setPersons([...persons, { name: nameObject.name , number: nameObject.number, id: nameObject.id}])
           console.log('not exists')
@@ -28,11 +28,36 @@ const AddPeople = ({newName, handleNameAdd, newNumber, handleNumberAdd, persons,
               }, 5000)
           })
           .catch(error => {
-            console.log('fail')
+            console.log('add failed')
           })
       } else {
-          alert(`${newName} is already added to phonebook`)
-      }}
+        const existingPerson = persons.find(person => person.name === newName)
+
+        if (existingPerson) {
+          const updatedPerson = { ...existingPerson, number: newNumber }
+          
+          console.log("id:", existingPerson.id)
+
+          // Update the person's number in the backend
+          service
+            .update(existingPerson.id, updatedPerson)
+            .then(returnedPerson => {
+              // Update the state with the updated person
+              setPersons(persons.map(person => person.id !== existingPerson.id ? person : returnedPerson))
+              setNewNumber('')
+              setNewName('')
+              setUpdateMessage(
+                `Updated number for ${returnedPerson.name}`
+              );
+              setTimeout(() => {
+                setUpdateMessage(null)
+              }, 5000)
+            })
+            .catch(error => {
+              console.log('add failed')
+            })
+        }
+    }}
 
     return (
       <>
