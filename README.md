@@ -58,3 +58,10 @@ then frontend development doesn't work without vite.config.js:
     }
   },
 
+
+### simple backend dependencies  
+npm init  
+npm install express  
+npm install --save-dev nodemon  
+npm install mongoose  
+npm install dotenv  
