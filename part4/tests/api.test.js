@@ -122,6 +122,49 @@ describe('when there is initially some blogs saved', () => {
             assert.strictEqual(response.body.error, 'Blog validation failed: url: Path `url` is required.')
         })
     })
+
+    describe('deletion of a blog', () => {
+        test('succeeds with status code 204 if id is valid', async () => {
+        const blogsAtStart = await helper.blogsInDB()
+        const blogToDelete = blogsAtStart[0]
+
+        await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            .expect(204)
+
+        const blogsAtEnd = await helper.blogsInDB()
+
+        const titles = blogsAtEnd.map(blog => blog.title)
+        assert(!titles.includes(blogToDelete.title))
+        
+        assert.strictEqual(
+            blogsAtEnd.length,
+            helper.initialBlogs.length - 1,
+            'The total number of blogs should decrease by one'
+        )
+        })
+
+        test('updating the information of a blog post', async () => {
+        const blogsAtStart = await helper.blogsInDB()
+        const blogToUpdate = blogsAtStart[0]
+
+        const updatedBlog = {
+            ...blogToUpdate,
+            likes: blogToUpdate.likes + 1,
+        }
+
+        await api
+            .put(`/api/blogs/${blogToUpdate.id}`)
+            .send(updatedBlog)
+            .expect(200)
+            .expect('Content-Type', /application\/json/)
+
+        const blogsAtEnd = await helper.blogsInDB()
+        const updatedBlogAtEnd = blogsAtEnd.find(blog => blog.id === blogToUpdate.id)
+
+        assert.strictEqual(updatedBlogAtEnd.likes, blogToUpdate.likes + 1)
+        })
+    })
 })
 
 
